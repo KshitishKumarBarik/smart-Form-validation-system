@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Form Validation & Concept Companion</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons (CDN) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="logo-area">
+        <i data-lucide="shield-check" class="logo-icon"></i>
+        <div>
+          <h1>Smart Validation System</h1>
+          <p class="tagline">Interactive Frontend Interview Prep Sandbox</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="badge">Project 1</span>
+        <button id="leakage-test-btn" class="btn btn-secondary">
+          <i data-lucide="alert-triangle"></i> Test Variable Leakage
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN WORKSPACE -->
+    <main class="workspace-grid">
+      
+      <!-- LEFT PANEL: INTERACTIVE FORM -->
+      <section class="panel-section form-panel">
+        <div class="glass-card">
+          <!-- Form Header/Tabs -->
+          <div class="tab-container">
+            <button class="tab-btn active" data-tab="register">
+              <i data-lucide="user-plus"></i> Register
+            </button>
+            <button class="tab-btn" data-tab="login">
+              <i data-lucide="log-in"></i> Log In
+            </button>
+            <div class="tab-slider"></div>
+          </div>
+
+          <!-- Form Area -->
+          <form id="auth-form" novalidate>
+            <!-- Title -->
+            <div class="form-intro">
+              <h2 id="form-title">Create Account</h2>
+              <p id="form-subtitle">Fill in the fields to test live validation features.</p>
+            </div>
+
+            <!-- Name Field (Register Only) -->
+            <div class="form-group" id="name-group">
+              <label for="username">
+                <span>Username</span>
+                <span class="label-info">Min 3 characters</span>
+              </label>
+              <div class="input-wrapper">
+                <i data-lucide="user" class="input-icon"></i>
+                <input type="text" id="username" name="username" placeholder="johndoe" autocomplete="username">
+                <i data-lucide="circle-alert" class="status-icon error-icon"></i>
+                <i data-lucide="circle-check" class="status-icon success-icon"></i>
+              </div>
+              <div class="error-msg" id="username-error">Username is required</div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+              <label for="email">
+                <span>Email Address</span>
+                <span class="label-info">Valid email format</span>
+              </label>
+              <div class="input-wrapper">
+                <i data-lucide="mail" class="input-icon"></i>
+                <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+                <i data-lucide="circle-alert" class="status-icon error-icon"></i>
+                <i data-lucide="circle-check" class="status-icon success-icon"></i>
+              </div>
+              <div class="error-msg" id="email-error">Please enter a valid email</div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+              <label for="password">
+                <span>Password</span>
+                <span class="label-info">Must be secure</span>
+              </label>
+              <div class="input-wrapper">
+                <i data-lucide="lock" class="input-icon"></i>
+                <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="new-password" required>
+                <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                  <i data-lucide="eye" class="eye-icon"></i>
+                </button>
+              </div>
+              <div class="error-msg" id="password-error">Password is required</div>
+              
+              <!-- Password Strength Checker -->
+              <div class="strength-meter-container" id="strength-container">
+                <div class="strength-bar-wrapper">
+                  <div class="strength-bar" id="strength-bar"></div>
+                </div>
+                <div class="strength-label" id="strength-label">Password Strength</div>
+                <ul class="strength-criteria">
+                  <li data-criterion="length" class="criteria-item">
+                    <i data-lucide="circle" class="criteria-icon"></i> At least 8 characters
+                  </li>
+                  <li data-criterion="number" class="criteria-item">
+                    <i data-lucide="circle" class="criteria-icon"></i> Contains a number
+                  </li>
+                  <li data-criterion="capital" class="criteria-item">
+                    <i data-lucide="circle" class="criteria-icon"></i> Contains an uppercase letter
+                  </li>
+                  <li data-criterion="special" class="criteria-item">
+                    <i data-lucide="circle" class="criteria-icon"></i> Contains a special character (!@#$%^&*)
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Confirm Password Field (Register Only) -->
+            <div class="form-group" id="confirm-password-group">
+              <label for="confirm-password">
+                <span>Confirm Password</span>
+                <span class="label-info">Must match password</span>
+              </label>
+              <div class="input-wrapper">
+                <i data-lucide="lock-keyhole" class="input-icon"></i>
+                <input type="password" id="confirm-password" name="confirmPassword" placeholder="••••••••" autocomplete="new-password">
+                <i data-lucide="circle-alert" class="status-icon error-icon"></i>
+                <i data-lucide="circle-check" class="status-icon success-icon"></i>
+              </div>
+              <div class="error-msg" id="confirm-password-error">Passwords do not match</div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submit-btn" class="btn btn-primary submit-btn">
+              <span>Create Account</span>
+              <i data-lucide="arrow-right"></i>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- RIGHT PANEL: INTERVIEW CONCEPT COMPANION -->
+      <section class="panel-section companion-panel">
+        <div class="glass-card flex-column">
+          <!-- Companion Tabs -->
+          <div class="companion-header">
+            <h3><i data-lucide="graduation-cap" class="header-icon"></i> Interview Companion</h3>
+            <span class="pulse-indicator">Active Sandbox</span>
+          </div>
+
+          <div class="companion-nav">
+            <button class="c-tab-btn active" data-concept="scope">Scope</button>
+            <button class="c-tab-btn" data-concept="dom">DOM & Events</button>
+            <button class="c-tab-btn" data-concept="validation">Regex & Async DNS</button>
+            <button class="c-tab-btn" data-concept="destructuring">Objects & ES6</button>
+          </div>
+
+          <!-- Explanations & Code Viewer -->
+          <div class="companion-content scrollbar">
+            
+            <!-- SCOPE SECTION -->
+            <div class="concept-section active" id="concept-scope">
+              <div class="concept-intro">
+                <h4>Understanding Variables & Scope</h4>
+                <p>Learn the difference between global, function, and block scope, and why variable leakage is a critical bug in production environments.</p>
+              </div>
+
+              <div class="interview-qa">
+                <div class="qa-item">
+                  <div class="question">Q: What is the difference between global, local, and block scope in JavaScript?</div>
+                  <div class="answer">
+                    <strong>High-Scoring Answer:</strong><br>
+                    - <strong>Global Scope:</strong> Variables declared outside of any function/block. Accessible anywhere. If defined with <code>var</code>, they attach to <code>window</code> (in browsers).<br>
+                    - <strong>Local/Function Scope:</strong> Variables declared inside a function are isolated inside that function. Introduced by <code>var</code>, <code>let</code>, and <code>const</code>.<br>
+                    - <strong>Block Scope:</strong> Introduced in ES6. Variables declared with <code>let</code> or <code>const</code> inside curly braces <code>{}</code> (like <code>if</code>, <code>for</code>) are block-scoped and cannot be accessed outside. <code>var</code> ignores block scope.
+                  </div>
+                </div>
+                
+                <div class="qa-item">
+                  <div class="question">Q: What is "variable leakage" and why is it dangerous?</div>
+                  <div class="answer">
+                    <strong>High-Scoring Answer:</strong> Variable leakage happens when you assign a value to an undeclared variable (forgetting <code>const</code>, <code>let</code>, or <code>var</code>). JavaScript implicitly creates it in the <strong>global scope</strong>. This causes conflicts (pollutes the global namespace), memory leaks, and hard-to-track bugs. Enable <code>"use strict";</code> at the top of your scripts to throw a ReferenceError when this happens.
+                  </div>
+                </div>
+              </div>
+
+              <div class="code-box-header">
+                <span>Code Example: Strict vs. Leaked Scope</span>
+                <button class="btn-copy" data-target="code-scope">Copy Code</button>
+              </div>
+              <pre class="code-box"><code id="code-scope">// Global variable
+const appName = "Smart Form Validation"; 
+
+function validateForm() {
+  // Local (Function) Scope
+  let isValid = true; 
+  
+  if (isValid) {
+    // Block Scope (let is restricted here)
+    let blockInfo = "Testing scope"; 
+    
+    // LEAKED VARIABLE: No declaration keyword!
+    // Implicitly attaches to window.leakedVar in browser.
+    leakedVar = "Oh no, I leaked!"; 
+  }
+  
+  console.log(isValid); // true
+  // console.log(blockInfo); // ReferenceError!
+}</code></pre>
+            </div>
+
+            <!-- DOM SECTION -->
+            <div class="concept-section" id="concept-dom">
+              <div class="concept-intro">
+                <h4>DOM Manipulation & Event Listeners</h4>
+                <p>How the browser triggers event callbacks, and how we dynamically update UI nodes to provide feedback to users without page reloads.</p>
+              </div>
+
+              <div class="interview-qa">
+                <div class="qa-item">
+                  <div class="question">Q: Explain a real-world scenario where you would use DOM manipulation.</div>
+                  <div class="answer">
+                    <strong>High-Scoring Answer:</strong> "In a smart form system. I attach <code>input</code> event listeners to inputs to perform live validation. Using DOM APIs like <code>querySelector</code>, I look up helper elements, then toggle visibility and append classes like <code>.is-invalid</code>. I also change element properties, like toggling an input's <code>type</code> from <code>password</code> to <code>text</code> when the user clicks a show/hide button. This increases accessibility and usability."
+                  </div>
+                </div>
+
+                <div class="qa-item">
+                  <div class="question">Q: Which input event listener should you use for forms? (change vs input)</div>
+                  <div class="answer">
+                    <strong>High-Scoring Answer:</strong> Use the <code>input</code> event for real-time validation. It fires instantly every time the value of an <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, or <code>&lt;textarea&gt;</code> changes. The <code>change</code> event only fires when the element loses focus (blurs) after a modification, which feels less responsive for live strength meters or checks.
+                  </div>
+                </div>
+              </div>
+
+              <div class="code-box-header">
+                <span>Code Example: DOM Querying & Toggles</span>
+                <button class="btn-copy" data-target="code-dom">Copy Code</button>
+              </div>
+              <pre class="code-box"><code id="code-dom">// Querying the DOM nodes
+const emailInput = document.querySelector("#email");
+const errorSpan = document.querySelector("#email-error");
+
+// Attaching dynamic input listener
+emailInput.addEventListener("input", function(e) {
+  const value = e.target.value;
+  
+  if (validateEmail(value)) {
+    // DOM style/class manipulation
+    emailInput.classList.add("valid");
+    emailInput.classList.remove("invalid");
+    errorSpan.innerText = ""; // Clear text
+    errorSpan.style.display = "none";
+  } else {
+    emailInput.classList.add("invalid");
+    emailInput.classList.remove("valid");
+    errorSpan.innerText = "Please enter a valid email format";
+    errorSpan.style.display = "block";
+  }
+});</code></pre>
+            </div>
+
+            <!-- VALIDATION SECTION -->
+            <div class="concept-section" id="concept-validation">
+              <div class="concept-intro">
+                <h4>Regex, DNS Validation & Async Fetch</h4>
+                <p>Validating textual input structures mathematically and performing real-time domain checking using DNS-over-HTTPS API lookups.</p>
+              </div>
+
+              <div class="interview-qa">
+                <div class="qa-item">
+                  <div class="question">Q: How do you write a regular expression to validate emails in JavaScript?</div>
+                  <div class="answer">
+                    <strong>High-Scoring Answer:</strong> "While a perfectly RFC 5322-compliant email regex is extremely complex, for standard client-side forms we use a pattern like: <code>/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/</code>. <br>
+                    - <code>^</code> and <code>$</code> assert start and end of string.<br>
+                    - <code>[\w-\.]+</code> matches letters, numbers, hyphens, and dots before the @.<br>
+                    - <code>@</code> matches literal '@' symbol.<br>
+                    - <code>([\w-]+\.)+</code> matches the domain name and dot.<br>
+                    - <code>[\w-]{2,4}</code> matches top-level domain extensions of length 2 to 4."
+                  </div>
+                </div>
+
+                <div class="qa-item">
+                  <div class="question">Q: How do you check if an email's domain actually exists and can receive mail? (MX Record check)</div>
+                  <div class="answer">
+                    <strong>High-Scoring Answer:</strong> "While a regex validates the *syntax* of an email, it cannot check if the domain is real or active. To verify if a domain can receive mail, we look up its **MX (Mail Exchanger) DNS records**. Since browsers cannot run raw DNS queries due to security and sandbox restrictions, we query a public **DNS-over-HTTPS (DoH)** API (like Cloudflare's) using <code>fetch</code> with the <code>application/dns-json</code> header. This is done asynchronously (e.g. on input <code>blur</code>), showing a loading state so it doesn't block the UI thread."
+                  </div>
+                </div>
+
+                <div class="qa-item">
+                  <div class="question">Q: Why is client-side validation important if server-side validation is mandatory?</div>
+                  <div class="answer">
+                    <strong>High-Scoring Answer:</strong> Client-side validation is for <strong>User Experience (UX)</strong>. It provides instant, satisfying feedback without round-trip network delays, saving server bandwidth. Server-side validation is for <strong>Security</strong>, because client-side code can be bypassed easily by disabling JS, tampering with requests, or using APIs directly.
+                  </div>
+                </div>
+              </div>
+
+              <div class="code-box-header">
+                <span>Code Example: Regex & DNS lookup</span>
+                <button class="btn-copy" data-target="code-val">Copy Code</button>
+              </div>
+              <pre class="code-box"><code id="code-val">// Reusable validation function using Regex
+function validateEmail(email) {
+  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  return emailRegex.test(email);
+}
+
+// Asynchronous MX Record validation using DNS-over-HTTPS
+async function checkMXRecord(email) {
+  const domain = email.split("@")[1];
+  if (!domain) return false;
+  
+  try {
+    const url = `https://cloudflare-dns.com/dns-query?name=${domain}&type=MX`;
+    const response = await fetch(url, {
+      headers: { "accept": "application/dns-json" }
+    });
+    const dnsData = await response.json();
+    
+    // DNS Status 0 = NOERROR. Check if Answers exist with MX type (15)
+    return dnsData.Status === 0 && dnsData.Answer && dnsData.Answer.length > 0;
+  } catch (err) {
+    console.error("DNS Lookup failed:", err);
+    return false; // Fallback or fail-safe
+  }
+}
+
+function checkPasswordStrength(password) {
+  const hasNumber = /[0-9]/.test(password);
+  const hasCapital = /[A-Z]/.test(password);
+  const hasSpecial = /[!@#$%^&*]/.test(password);
+  
+  return { hasNumber, hasCapital, hasSpecial };
+}</code></pre>
+            </div>
+
+            <!-- DESTRUCTURING SECTION -->
+            <div class="concept-section" id="concept-destructuring">
+              <div class="concept-intro">
+                <h4>Objects & ES6 Destructuring</h4>
+                <p>Collecting local variables into organized state objects, and cleanly breaking them apart using modern syntax instead of dot notation.</p>
+              </div>
+
+              <div class="interview-qa">
+                <div class="qa-item">
+                  <div class="question">Q: Why should we store form data in an object rather than separate variables?</div>
+                  <div class="answer">
+                    <strong>High-Scoring Answer:</strong> Storing data in a single object like <code>const formData = { email: '', password: '' }</code> gives us a "single source of truth". It makes it clean to pass the data to API callers, serialize it to JSON, reset states, and perform batch operations. It aligns with modern state-management patterns in frameworks like React.
+                  </div>
+                </div>
+
+                <div class="qa-item">
+                  <div class="question">Q: Explain object destructuring and its benefits.</div>
+                  <div class="answer">
+                    <strong>High-Scoring Answer:</strong> Destructuring is an ES6 feature allowing us to unpack values from arrays or properties from objects into distinct variables. It reduces boilerplate code. Instead of writing: <br>
+                    <code>const email = formData.email;</code><br>
+                    We write:<br>
+                    <code>const { email, password } = formData;</code><br>
+                    It is highly readable, permits setting default values, and allows renaming variables inline (e.g. <code>const { email: userEmail } = formData;</code>).
+                  </div>
+                </div>
+              </div>
+
+              <div class="code-box-header">
+                <span>Code Example: Object Handling & Destructuring</span>
+                <button class="btn-copy" data-target="code-destruct">Copy Code</button>
+              </div>
+              <pre class="code-box"><code id="code-destruct">// State object representing form values
+const formData = {
+  username: "",
+  email: "",
+  password: ""
+};
+
+// Submitting the data
+function handleFormSubmit(e) {
+  e.preventDefault();
+  
+  // Extracting values using ES6 Destructuring
+  const { username, email, password } = formData;
+  
+  console.log("Submitting values:");
+  console.log(`User: ${username}, Email: ${email}`);
+  
+  // Send payload to backend API (e.g., fetch)
+  // const payload = JSON.stringify({ username, email, password });
+}</code></pre>
+            </div>
+
+          </div>
+
+          <!-- Dynamic Console Logger (For real-time logs) -->
+          <div class="companion-footer">
+            <div class="console-header">
+              <span><i data-lucide="terminal"></i> Sandbox State Logger</span>
+              <button id="clear-console-btn">Clear Logs</button>
+            </div>
+            <div class="console-body scrollbar" id="console-logs">
+              <div class="log-line system">[SYSTEM] Sandbox initialized. Type in form inputs to observe scope, state changes, and DOM triggers.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="app.js?v=2"></script>
+  <script src="companion.js?v=2"></script>
+</body>
+</html>
